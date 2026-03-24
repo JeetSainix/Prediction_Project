@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color:white;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Mumbai House Price Prediction Form</h1>
+
+    <div class="form-container">
+        <form action="/predict" method="post">
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>BHK:</label>
+                    <input type="number" class="form-control" name="bhk" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Type:</label>
+                    <select class="form-control" name="type">
+                         <option value="">Select Type</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Studio Apartment ">Studio Apartment </option>
+                        <option value="Independent House">Independent House</option>
+                        <option value="Penthouse">Penthouse</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Area (sq ft):</label>
+                    <input type="number" class="form-control" name="area" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Price Unit:</label>
+                    <select class="form-control" name="price_unit">
+                         <option value="">Select Price Unit</option>
+                        <option value="Cr">Crore</option>
+                        <option value="L">Lakh</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Region:</label>
+                    <select class="form-control" name="region" required>
+                        <option value="">Select Region</option>
+                            {% for r in regions %}
+                            <option value="{{ r }}">{{ r }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Status:</label>
+                    <select class="form-control" name="status">
+                        <option value="">Select Status</option>
+                        <option value="Ready to move">Ready to move</option>
+                        <option value="Under Construction">Under Construction</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Age:</label>
+                    <select class="form-control" name="age">
+                         <option value="">Select Age</option>
+                        <option value="New">New</option>
+                        <option value="Unknown">Unknown </option>
+                        <option value="Resale">Resale</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Predict Price</button>
+
+        </form>
+    </div>
+
+    {% if prediction_text %}
+    <div class="result mt-4">
+        <h2 style="text-align:center">Prediction Result</h2>
+        <p style="text-align:center"><strong >{{ prediction_text }}</strong></p>
+    </div>
+    {% endif %}
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
